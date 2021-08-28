@@ -13,8 +13,8 @@
 <!--NavBar Start-->
      <nav class="navbar navbar-expand-md navbar-default bg-dark text-uppercase tex fixed-top" id="mainNav">
       <div class="container">
-       <a href="#" class="navbar-brand">
-            <img src="assets/Image/Logo.png" width="250" height="50" alt="handsOfRecords">
+       <a href="<?php echo base_url()?>" class="navbar-brand">
+            <img src="assets/Image/Logo.png" width="250" height="50" alt="handsOfRecords" href="">
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -22,22 +22,22 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.html">Release</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="<?php echo base_url('release')?>">Release</a>
             </li>
              <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.html">Artist</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="<?php echo base_url('artist')?>">Artist</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="blog.html">News</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="<?php echo base_url('news')?>">News</a>
               <div class="dropdown-menu">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="contact.html">Submission</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="<?php echo base_url('submission')?>">Submission</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="contact.html">About</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="<?php echo base_url('about')?>">About</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="contact.html">Donate</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="<?php echo base_url('donate')?>">Donate</a>
             </li>
           </ul>
         </div>

@@ -18,16 +18,31 @@ class Web extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	// public function __construct()
-	// {
-	// 	parent::__construct();
-	// 	$this->load->model(['model_produk']);
-	// }
+	function __construct(){
+		parent::__construct();		
+
+	}
 	public function index()
 	{
+		$data['artist'] = $this->model_artist->hasil_data();
+		$data['release'] = $this->model_release->hasil_data();
 		$this->load->view('webpage/header');
-		$this->load->view('webpage/artist');
+		$this->load->view('inti/release', $data);
+		$this->load->view('inti/artist', $data);
 		$this->load->view('webpage/footer');
-		// $this->load->view();
+	}
+	public function artist()
+	{
+		$data['artist'] = $this->model_artist->hasil_data();
+		$this->load->view('webpage/header');
+		$this->load->view('inti/artist', $data);
+		$this->load->view('webpage/footer');
+	}
+	public function release()
+	{
+		$data['release'] = $this->model_release->hasil_data();
+		$this->load->view('webpage/header');
+		$this->load->view('inti/release', $data);
+		$this->load->view('webpage/footer');
 	}
 }
