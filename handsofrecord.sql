@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2021 at 05:30 AM
+-- Generation Time: Sep 04, 2021 at 07:08 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -106,15 +106,22 @@ CREATE TABLE `music` (
 
 CREATE TABLE `news` (
   `id_news` int(11) NOT NULL,
+  `n_judul` varchar(128) NOT NULL,
   `n_category` int(11) NOT NULL,
   `n_userID` int(11) NOT NULL,
-  `n_title` int(11) NOT NULL,
-  `n_slug` int(11) NOT NULL,
-  `n_body` int(11) NOT NULL,
-  `n_image` int(11) NOT NULL,
+  `n_slug` varchar(128) NOT NULL,
+  `n_body` text NOT NULL,
+  `n_image` varchar(255) NOT NULL,
   `n_createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `n_editedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id_news`, `n_judul`, `n_category`, `n_userID`, `n_slug`, `n_body`, `n_image`, `n_createdAt`, `n_editedAt`) VALUES
+(1, 'Brainforest merilis album untuk pertama kalinya', 1, 1, 'brainforest-rilis-album', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et molestie eros. Maecenas dignissim, erat at faucibus finibus, nunc nibh finibus lacus, sed gravida leo urna at erat. Proin et efficitur dolor, eget interdum enim. Cras nec ante quis tellus gravida ornare. Duis arcu lacus, elementum quis iaculis id, mattis ut turpis. Pellentesque id dignissim dolor. Curabitur finibus facilisis pulvinar. Nullam urna arcu, malesuada a purus a, pharetra pulvinar lacus. Curabitur quis ornare felis, ut ultrices nulla.</p>\r\n\r\n<p>Fusce placerat aliquam erat, et sagittis diam accumsan vitae. In elementum vel augue sit amet bibendum. Nulla cursus elit metus. Ut auctor nisl quis bibendum tincidunt. Integer gravida nisi id urna rhoncus, nec tristique magna efficitur. Mauris non blandit ipsum, ut tempus purus. Praesent rhoncus gravida aliquam. Nulla finibus mi id fermentum fringilla. Morbi volutpat, massa eget sodales tempus, est risus elementum leo, pulvinar fermentum diam nibh a mi. Phasellus porttitor vitae mauris non elementum. Sed ut lacinia sapien. Proin a metus ullamcorper lectus ultricies euismod. Donec vitae turpis eros. Morbi at imperdiet ligula. Mauris sed rutrum lectus. Phasellus eget nulla congue, dictum dolor ac, dapibus justo.</p>\r\n', 'upload/releaseCoverArt/InnersoulBf.png', '2021-09-03 06:55:26', '2021-09-03 06:55:26');
 
 -- --------------------------------------------------------
 
@@ -311,7 +318,7 @@ ALTER TABLE `music`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `release`
