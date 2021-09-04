@@ -21,9 +21,9 @@ class Dashboard extends CI_Controller {
 	function __construct(){
 		parent::__construct();		
 		$this->load->helper('url_helper');
+		$this->load->model('model_auth');
 	}
-	public function index()
-	{
-        $this->load->view('inti/dashboard');
+	public function index(){
+            $this->load->view('inti/dashboard');
 	}
 }

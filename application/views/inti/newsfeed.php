@@ -1,4 +1,4 @@
-<title>Hands Of Records - News</title>
+
 <br>
 <br>
 <br>
@@ -8,9 +8,9 @@
 
 <?php foreach ($news as $news_item): ?>
         <!--Card Berita-->
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-8" style="max-width: 540px;">
   <div class="row no-gutters">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <img src="<?php echo $news_item['n_image']; ?>" class="card-img" alt="...">
     </div>
     <div class="col-md-8">

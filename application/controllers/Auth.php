@@ -5,57 +5,91 @@ class Auth extends CI_Controller
 {
     function __construct(){
         parent::__construct();
-        $this->load->model('model_auth');
+        $this->load->model(array('model_auth'));
     }
     function index(){
-        $this->load->view('admin/login');
-    }
-    function auth(){
-        $username=htmlspecialchars($this->input->post('username',TRUE),ENT_QUOTES);
-        $password=htmlspecialchars($this->input->post('password',TRUE),ENT_QUOTES);
- 
-        $user_cek=$this->model_auth->auth_user($username,$password);
-        if($user_cek->num_rows() > 0){
-                        $data=$user_cek->row_array();
-                $this->session->set_userdata('masuk',TRUE);
-                 if($data['u_role']=='1'){ //Akses admin
-                    $this->session->set_userdata('akses','1');
-                    $this->session->set_userdata('ses_id',$data['u_username']);
-                    $this->session->set_userdata('ses_nama',$data['u_pass']);
-                    redirect('inti/dashboard');
- 
-                 }else{ //akses dosen
-                    $this->session->set_userdata('akses','2');
-                                $this->session->set_userdata('ses_id',$data['nip']);
-                    $this->session->set_userdata('ses_nama',$data['nama']);
-                    redirect('inti/dashboard');
-                 }
- 
-        }else{ //jika login sebagai mahasiswa
-                    $cek_mahasiswa=$this->login_model->auth_mahasiswa($username,$password);
-                    if($cek_mahasiswa->num_rows() > 0){
-                            $data=$cek_mahasiswa->row_array();
-                    $this->session->set_userdata('masuk',TRUE);
-                            $this->session->set_userdata('akses','3');
-                            $this->session->set_userdata('ses_id',$data['nim']);
-                            $this->session->set_userdata('ses_nama',$data['nama']);
-                            redirect('page');
-                    }else{  // jika username dan password tidak ditemukan atau salah
-                            $url=base_url();
-                            echo $this->session->set_flashdata('msg','Username Atau Password Salah');
-                            redirect($url);
-                    }
+        $logged_in = $this->session->userdata('logged_in');
+        if ($logged_in==TRUE) {
+            redirect('dashboard');
+        }else{
+            $this->load->view('admin/login');
         }
- 
+        
     }
- 
-    function logout(){
+    function login()
+    {
+        
+        $this->_validate();
+        //cek username database
+        $username = anti_injection($this->input->post('username'));
+
+        if($this->model_auth-->check_db($username)->num_rows()==1) {
+            $db = $this->model_auth->check_db($username)->row();
+            $apl = $this->model_auth->Aplikasi()->row();
+
+            if(hash_verified(anti_injection($this->input->post('password')), $db->password)) {
+            //cek username dan password yg ada di database
+                $userdata = array(
+                    'id_user'  => $db->id_user,
+                    'username'    => ($db->u_username),
+                    'password'    => $db->password,
+                    'role'    => $db->u_role,
+                    'logged_in'    => TRUE
+                );
+
+                $this->session->set_userdata($userdata);
+                $data['status'] = TRUE;
+                echo json_encode($data);
+            }else{
+
+                $data['pesan'] = "Username atau Password Salah!";
+                $data['error'] = TRUE;
+                echo json_encode($data);
+            }
+        }else{
+            $data['pesan'] = "Username atau Password belum terdaftar!";
+            $data['error'] = TRUE;
+            echo json_encode($data);
+        }
+        
+    }
+    public function logout()
+    {
         $this->session->sess_destroy();
-        $url=base_url('');
-        redirect($url);
+        $this->load->driver('cache');
+        $this->cache->clean();
+        ob_clean();
+        redirect('');
     }
- 
+    private function _validate()
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if($this->input->post('username') == '')
+        {
+            $data['inputerror'][] = 'username';
+            $data['error_string'][] = 'Username is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('password') == '')
+        {
+            $data['inputerror'][] = 'password';
+            $data['error_string'][] = 'Password is required';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
 }
+
 
 
 

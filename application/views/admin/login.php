@@ -25,46 +25,42 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="<?=base_url('assets');?>/vendor/AdminLTE-3.1.0/index2.html"><b>Hands Of</b>Record</a>
+<b>Hands Of</b>Record
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Masuk</p>
 
-        <form action="<?=base_url();?>index.php/dashboard" method="post">
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Username">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
+        <form action="" role="form" id="quickForm" method="post">
+        <div class="form-group">
+        <label for="username">Username</label>
+        <div class="input-group mb-3 kosong">
+          <input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo set_value('username'); ?>" >
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
             </div>
           </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
+        </div>
+      </div>
+        <label for="username">Password</label>
+        <div class="input-group mb-3 kosong">
+          <input type="password" name="password"  class="form-control" placeholder="Password" value="<?php echo set_value('password'); ?>">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
             </div>
           </div>
-          <div class="row">
-            <div class="col-8">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Ingatkan Saya
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Masuk</button>
-            </div>
-            <!-- /.col -->
+        </div>
+    
+          <!-- /.col -->
+          <div class="center" >
+            <button type="button" id="" class="btn btn-info btn-block btn-flat"><span class="fa fa-sign-in-alt"></span> Sign In</button>
           </div>
-        </form>
+          <!-- /.col -->
+        <!-- </div> -->
+      </form>
         <p class="mb-1">
           <a href="forgot-password.html">Lupa Password</a>
         </p>
@@ -84,6 +80,37 @@
   <!-- AdminLTE App -->
   <script src="<?=base_url('assets');?>/vendor/AdminLTE-3.1.0/dist/js/adminlte.min.js"></script>
 
+
+<script>
+  $("#login").on('click',function() {
+      $.ajax({
+        url : '<?php echo base_url('login/login') ?>',
+        type : 'POST',
+        data : $('#quickForm').serialize(),
+        dataType : 'JSON',
+        success : function(data) {
+          if (data.status) {
+            toastr.success('Login Berhasil!');
+            var url = '<?php echo base_url('dashboard') ?>';
+            window.location = url;
+          }else if (data.error) {
+            toastr.error(
+              data.pesan
+            );
+          }else{
+                for (var i = 0; i < data.inputerror.length; i++) 
+                {
+                    $('[name="'+data.inputerror[i]+'"]').addClass('is-invalid');
+                    $('[name="'+data.inputerror[i]+'"]').closest('.kosong').append('<span></span>');
+                    $('[name="'+data.inputerror[i]+'"]').next().next().text(data.error_string[i]).addClass('invalid-feedback');
+                }
+          }
+        }
+      });
+      
+  });
+
+</script>
 </body>
 
 </html>

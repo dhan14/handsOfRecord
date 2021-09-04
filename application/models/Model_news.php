@@ -10,6 +10,13 @@ class Model_news extends CI_Model{
         return $this->db->get_where('news', array('n_slug' => $n_slug))->row_array();
         
     }
+    public function hasil_author(){
+        return $this->db->from('news')
+        ->join('user', 'news.n_userID=user.id_user')
+        ->join('category', 'news.n_category=category.id_category')
+        ->get()
+        ->result();
+    }
 }
 
 

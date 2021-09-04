@@ -28,18 +28,20 @@ class News extends CI_Controller {
 		$data['news'] = $this->model_news->hasil_berita();
        	$this->load->view('webpage/header');
         $this->load->view('inti/newsfeed', $data);
-        $data['judul'] = 'Arsip Berita';
 		$this->load->view('webpage/footer');
 	}
     public function view($n_slug = NULL){
-		$data['news'] = $this->model_news->hasil_berita($n_slug);
-        if (empty($data['news']))
+		$data['news'] = $this->model_news->hasil_berita();
+		$data['author'] = $this->model_news->hasil_author();
+		$this->load->view('webpage/header');
+		if (empty($data['news']))
         {
 			show_404();
-        }
-        $data['judul'] = $data['news']['n_judul'];
-		$this->load->view('webpage/header');
+        }else{
+
+		}
         $this->load->view('inti/newsread', $data);
 		$this->load->view('webpage/footer');
+
     }
 }
