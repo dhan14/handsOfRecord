@@ -14,7 +14,11 @@
             <h5 class="card-title"><?php echo $release->re_namaAlbum?></h5>
             <span class="badge badge-primary"><?php echo $release->genre?></span>
             <span class="badge badge-warning"><?php echo $release->a_namaArtist?></span>
+            <br>
+            <br>
+            <p><?php echo $release->re_deskripsi?></p>
           </div>
+          <a class="btn btn-primary" href="<?php echo $release->re_fileArsip?>" role="button">Download</a>
         </div>
       <?php endforeach;?>
 

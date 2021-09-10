@@ -1,0 +1,9 @@
+
+//Cari Nilai AI terakhir
+SELECT `AUTO_INCREMENT`
+FROM  INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'handsofrecord'
+AND   TABLE_NAME   = 'artist';
+
+//Reset Ai
+Alter Table nama_tabel AUTO_INCREMENT = 1;

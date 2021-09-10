@@ -21,6 +21,7 @@ class Artist extends CI_Controller {
 	function __construct(){
 		parent::__construct();		
 		$this->load->helper('url_helper');
+
 	}
 	public function index()
 	{

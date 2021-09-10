@@ -1,12 +1,24 @@
 <?php
 class Model_auth extends CI_Model{
-    function auth_user($username,$password){
-        $query=$this->db->query("SELECT * FROM user WHERE u_username='$username' AND u_pass=MD5('$passwd')LIMIT 1");
-        return $query;
-    }
-    function check_db($username)
-    {
-        return $this->db->get_where('user', array('u_username' => $username));
-    }
-    
+
+	public function cekLogin($u_username, $u_pass){
+
+		$hasil = $this->db
+		->where('u_username', $u_username)
+		->where('u_pass', $u_pass)
+		-> limit(1)
+		-> get('user');
+
+		if($hasil->num_rows() > 0){
+			return $hasil->row();
+			
+		} else{
+			return FALSE;
+		}
+	}
+
+	public function insertData($table, $data){
+			$this->db->insert($table, $data);
+	}
+
 }

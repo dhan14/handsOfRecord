@@ -27,11 +27,9 @@ class Web extends CI_Controller {
 	{
 		$data['artist'] = $this->model_artist->hasil_data();
 		$data['release'] = $this->model_release->hasil_data();
-		$data['news'] = $this->model_news->hasil_berita();
 		$this->load->view('webpage/header');
 		$this->load->view('inti/release', $data);
 		$this->load->view('inti/artist', $data);
-		$this->load->view('inti/newsfeed', $data);
 		$this->load->view('webpage/footer');
 	}
 	public function artist()
@@ -46,14 +44,6 @@ class Web extends CI_Controller {
 		$data['release'] = $this->model_release->hasil_data();
 		$this->load->view('webpage/header');
 		$this->load->view('inti/release', $data);
-		$this->load->view('webpage/footer');
-	}
-	public function news()
-	{
-		$data['news'] = $this->model_news->hasil_berita();
-       	$this->load->view('webpage/header');
-        $this->load->view('inti/newsfeed', $data);
-        $data['judul'] = 'Arsip Berita';
 		$this->load->view('webpage/footer');
 	}
 }

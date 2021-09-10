@@ -14,6 +14,8 @@
             <h5 class="card-title"><?php echo $artist->a_namaArtist?></h5>
             <span class="badge badge-primary"><?php echo $artist->a_genre?></span>
             <span class="badge badge-warning"><?php echo $artist->a_asal?></span>
+                      <p><?php echo $artist->a_deskripsi?></p>
+
           </div>
         </div>
       <?php endforeach;?>
